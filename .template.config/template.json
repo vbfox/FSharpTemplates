@@ -11,9 +11,23 @@
       "80e6d22c-3dec-4929-b4bf-68e3a3f28039",
       "B158E4B2-AF4C-4A91-BC1E-3D4E4B080802"
   ],
-  "sources": {
-      "exclude": ["artifacts/**/*"]
-  },
+  "sources": [
+    {
+      "exclude": [
+        "**/[Bb]in/**",
+        "**/[Oo]bj/**",
+        "**/.template.config/**",
+        "**/*.filelist",
+        "**/*.user",
+        "**/*.lock.json",
+
+        "**/.git/**",
+        "**/.vs/**",
+        "**/artifacts/**",
+        "**/paket.lock"
+      ]
+    }
+  ],
   "symbols": {
     "github-user": {
       "type": "parameter",
