@@ -127,16 +127,19 @@ Task "RunTests" [ "Build"] <| fun _ ->
 open SourceLink
 
 Task "SourceLink" [ "Build" ] <| fun _ ->
-    let baseUrl = sprintf "%s/%s/{0}/%%var2%%" gitRaw gitName
-    tracefn "SourceLink base URL: %s" baseUrl
+    if directoryExists (rootDir </> ".git") then
+        let baseUrl = sprintf "%s/%s/{0}/%%var2%%" gitRaw gitName
+        tracefn "SourceLink base URL: %s" baseUrl
 
-    !! sourceProjects
-    |> Seq.iter (fun projFile ->
-        let projectName = Path.GetFileNameWithoutExtension projFile
-        let proj = VsProj.LoadRelease projFile
-        tracefn "Generating SourceLink for %s on pdb: %s" projectName proj.OutputFilePdb
-        SourceLink.Index proj.CompilesNotLinked proj.OutputFilePdb rootDir baseUrl
-    )
+        !! sourceProjects
+        |> Seq.iter (fun projFile ->
+            let projectName = Path.GetFileNameWithoutExtension projFile
+            let proj = VsProj.LoadRelease projFile
+            tracefn "Generating SourceLink for %s on pdb: %s" projectName proj.OutputFilePdb
+            SourceLink.Index proj.CompilesNotLinked proj.OutputFilePdb rootDir baseUrl
+        )
+    else
+        tracefn "Git isn't used as VCS for this project, SourceLink is disabled"
 
 let finalBinaries = if isMono then "Build" else "SourceLink"
 
