@@ -24,7 +24,8 @@
         "**/.git/**",
         "**/.vs/**",
         "**/artifacts/**",
-        "**/paket.lock"
+        "**/packages/**",
+        "**/paket-files/**"
       ]
     }
   ],
