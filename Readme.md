@@ -11,9 +11,9 @@ The recommended way is via paket or nuget.
 
 For nuget :
 
-    nuget install stidgen -ExcludeVersion -OutputDirectory packages
+    nuget install NUGET_NAME -ExcludeVersion -OutputDirectory packages
 
-For paket, add `nuget stidgen` to your `paket.dependencies` and then to
+For paket, add `nuget NUGET_NAME` to your `paket.dependencies` and then to
 install it :
 
     /.paket/paket.exe install
