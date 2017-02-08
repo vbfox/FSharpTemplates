@@ -1,0 +1,17 @@
+type file
+id NUGET_NAME
+owners AUTHOR_NAME
+authors AUTHOR_NAME
+tags F# FSharp
+projectUrl
+    https://github.com/GITHUB_USERNAME/GITHUB_PROJECT
+licenseUrl
+    https://github.com/GITHUB_USERNAME/GITHUB_PROJECT/blob/master/LICENSE.md
+requireLicenseAcceptance
+    false
+copyright
+    Copyright 2042
+summary
+    MyNewProject
+description
+    MyNewProject

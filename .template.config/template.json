@@ -1,0 +1,51 @@
+{
+  "author": "Julien Roncaglia <julien@roncaglia.fr>",
+  "classifications": [ "Custom Templates" ],
+  "name": "Paket Solution",
+  "identity": "BlackFox.NewTemplates.PaketSln",
+  "shortName": "paketsln",
+  "tags": {
+  },
+  "sourceName": "MyNewProject",
+  "guids": [
+      "80e6d22c-3dec-4929-b4bf-68e3a3f28039",
+      "B158E4B2-AF4C-4A91-BC1E-3D4E4B080802"
+  ],
+  "sources": {
+      "exclude": ["artifacts/**/*"]
+  },
+  "symbols": {
+    "github-user": {
+      "type": "parameter",
+      "isRequired": true,
+      "replaces": "GITHUB_USERNAME",
+      "datatype": "string"
+    },
+    "github-project": {
+      "type": "parameter",
+      "isRequired": true,
+      "replaces": "GITHUB_PROJECT",
+      "datatype": "string"
+    },
+    "nuget": {
+      "type": "parameter",
+      "isRequired": true,
+      "replaces": "NUGET_NAME",
+      "datatype": "string"
+    },
+    "author": {
+      "type": "parameter",
+      "isRequired": true,
+      "replaces": "AUTHOR_NAME",
+      "datatype": "string"
+    },
+    "copyrightYear": {
+      "type": "generated",
+      "generator": "now",
+      "replaces": "2042",
+      "parameters": {
+        "format": "yyyy"
+      }
+    }
+  }
+}
