@@ -2,10 +2,8 @@ version 3.35.1
 
 source https://nuget.org/api/v2
 
-redirects: on
-
 // Code
-nuget FSharp.Core ~> 4
+nuget FSharp.Core ~> 4 redirects: force
 
 // Unit tests
 nuget NUnit ~> 3.4.1

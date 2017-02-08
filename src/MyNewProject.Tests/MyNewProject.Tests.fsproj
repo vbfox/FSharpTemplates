@@ -7,7 +7,8 @@
     <OutputType>Library</OutputType>
     <RootNamespace>MyNewProject.Tests</RootNamespace>
     <AssemblyName>MyNewProject.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -49,8 +50,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyNewProject.Tests\MyNewProject.Tests.fsproj">
-      <Name>MyNewProject.Tests</Name>
+    <ProjectReference Include="..\MyNewProject\MyNewProject.fsproj">
+      <Name>MyNewProject</Name>
       <Project>{80e6d22c-3dec-4929-b4bf-68e3a3f28039}</Project>
       <Private>True</Private>
     </ProjectReference>
