@@ -23,7 +23,8 @@ let project = "MyNewProject"
 let summary = "MyNewProjectr"
 let solutionFile  = rootDir </> project + ".sln"
 let testAssemblies = artifactsDir </> "bin" </> "*.Tests" </> configuration </> "*.Tests.dll"
-let sourceProjects = rootDir </> "src/**/*.??proj"
+let allProjects = !! (rootDir </> "src/**/*.??proj")
+let sourceProjects = allProjects -- "src/*.Tests/**.??proj"
 
 /// The profile where the project is posted
 let gitOwner = "GITHUB_USERNAME"
@@ -78,13 +79,27 @@ Task "AssemblyInfo" ["?Clean"] <| fun _ ->
           (getAssemblyInfoAttributes projectName)
         )
 
-    !! sourceProjects
+    let tempFile = System.IO.Path.GetTempFileName()
+
+    let updateIfNecessary fromPath toPath =
+        let fromText = File.ReadAllText(fromPath)
+        let toText = File.ReadAllText(toPath)
+        if not (fromText.Equals(toText, StringComparison.InvariantCulture)) then
+            CopyFile toPath fromPath
+
+    allProjects
     |> Seq.map getProjectDetails
     |> Seq.iter (fun (projFileName, projectName, folderName, attributes) ->
         match projFileName with
-        | Fsproj -> CreateFSharpAssemblyInfo (folderName </> "AssemblyInfo.fs") attributes
-        | Csproj -> CreateCSharpAssemblyInfo (folderName </> "Properties" </> "AssemblyInfo.cs") attributes
-        | Vbproj -> CreateVisualBasicAssemblyInfo (folderName </> "My Project" </> "AssemblyInfo.vb") attributes
+        | Fsproj ->
+            CreateFSharpAssemblyInfo tempFile attributes
+            updateIfNecessary tempFile (folderName </> "AssemblyInfo.fs")
+        | Csproj ->
+            CreateCSharpAssemblyInfo tempFile attributes
+            updateIfNecessary tempFile (folderName </> "Properties" </> "AssemblyInfo.cs")
+        | Vbproj ->
+            CreateVisualBasicAssemblyInfo tempFile attributes
+            updateIfNecessary tempFile (folderName </> "My Project" </> "AssemblyInfo.vb")
         )
 
 // --------------------------------------------------------------------------------------
@@ -93,7 +108,7 @@ Task "AssemblyInfo" ["?Clean"] <| fun _ ->
 Task "Clean" [] <| fun _ ->
     CleanDir artifactsDir
 
-    !! solutionFile
+    allProjects
     |> MSBuildReleaseExt "" [ "GenerateFullPaths", "True" ] "Clean"
     |> ignore
 
@@ -101,8 +116,8 @@ Task "Clean" [] <| fun _ ->
 // Build library & test project
 
 Task "Build" ["AssemblyInfo"] <| fun _ ->
-    !! solutionFile
-    |> MSBuildReleaseExt "" [ "GenerateFullPaths", "True" ] "Rebuild"
+    allProjects
+    |> MSBuildReleaseExt "" [ "GenerateFullPaths", "True" ] "Build"
     |> ignore
 
 // --------------------------------------------------------------------------------------
@@ -131,7 +146,7 @@ Task "SourceLink" [ "Build" ] <| fun _ ->
         let baseUrl = sprintf "%s/%s/{0}/%%var2%%" gitRaw gitName
         tracefn "SourceLink base URL: %s" baseUrl
 
-        !! sourceProjects
+        sourceProjects
         |> Seq.iter (fun projFile ->
             let projectName = Path.GetFileNameWithoutExtension projFile
             let proj = VsProj.LoadRelease projFile
