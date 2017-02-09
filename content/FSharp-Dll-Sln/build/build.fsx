@@ -223,16 +223,6 @@ Task "GitHubRelease" ["Zip"] <| fun _ ->
     |> Octokit.releaseDraft
     |> Async.RunSynchronously
 
-Task "Pack" [] <| fun _ ->
-    Fake.ILMergeHelper.ILMerge
-        (fun p ->
-            { p with
-                Libraries = !! (appBinDir </> "*.dll")
-                ToolPath = rootDir </> "ilrepack.exe"
-            })
-        (artifactsDir </> "merged.exe")
-        (appBinDir </> "MyNewProject.exe")
-
 // --------------------------------------------------------------------------------------
 // Empty targets for readability
 
