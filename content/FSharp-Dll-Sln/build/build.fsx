@@ -94,7 +94,7 @@ Task "Clean" [] <| fun _ ->
     CleanDir artifactsDir
 
     !! solutionFile
-    |> MSBuildRelease "" "Clean"
+    |> MSBuildReleaseExt "" [ "GenerateFullPaths", "True" ] "Clean"
     |> ignore
 
 // --------------------------------------------------------------------------------------
@@ -102,7 +102,7 @@ Task "Clean" [] <| fun _ ->
 
 Task "Build" ["AssemblyInfo"] <| fun _ ->
     !! solutionFile
-    |> MSBuildRelease "" "Rebuild"
+    |> MSBuildReleaseExt "" [ "GenerateFullPaths", "True" ] "Rebuild"
     |> ignore
 
 // --------------------------------------------------------------------------------------
