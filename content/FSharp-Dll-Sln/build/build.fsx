@@ -20,7 +20,7 @@ let nunitPath = rootDir </> @"packages" </> "NUnit.ConsoleRunner" </> "tools" </
 let appBinDir = artifactsDir </> "bin" </> "MyNewProject" </> configuration
 
 let project = "MyNewProject"
-let summary = "Strongly Typed ID type Generator"
+let summary = "MyNewProjectr"
 let solutionFile  = rootDir </> project + ".sln"
 let testAssemblies = artifactsDir </> "bin" </> "*.Tests" </> configuration </> "*.Tests.dll"
 let sourceProjects = rootDir </> "src/**/*.??proj"
