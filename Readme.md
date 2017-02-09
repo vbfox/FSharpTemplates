@@ -17,6 +17,6 @@ The solution come with 2 projects: A library and an unit test project
 
 Parameters:
 * `--github-user` Name of the github user as it appear in URLs
-* `--github-projectuser` Name of the github project as it appear in URLs
+* `--github-project` Name of the github project as it appear in URLs
 * `--nuget` Name of the nuget package
 * `--author` Full name of the author (For copyright, nuget package author, ...)
