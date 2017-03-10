@@ -11,6 +11,10 @@ Installation
 FSharp-Dll-Sln
 --------------
 
+```bash
+dotnet new paketsln -n MyNewProject -o MyNewProject --github-user vbfox --github-project MyNewProject --nuget "BlackFox.MyNewProject" --author "Julien Roncaglia"
+```
+
 My own take on a full F# solution for VS2015 / .Net 4.5.2 :
 
 * Project must be hosted on GitHub
